@@ -66,11 +66,6 @@ import { config } from "../../../config/properties";
 		
 		//EXTERNAL RELATIONS
 		
-		user_role: [{
-			type: Schema.ObjectId, 
-			required : true,
-			ref : "User"
-		}],
 		
 	}
  * 

@@ -24,14 +24,11 @@ import { LoginComponent } from './pages/login/login.component';
 /* START MY VIEWS IMPORTS*/
 // Do not edit this comment content, it will be overwritten in next Skaffolder generation
 import { HomeComponent } from './pages/home/home.component';
-import { LoginComponent } from './pages/login/login.component';
 
 /* END MY VIEWS IMPORTS*/
 
 /* START MY SERVICES IMPORTS*/
 // Do not edit this comment content, it will be overwritten in next Skaffolder generation
-import { RoleService } from './services/role.service';
-import { RoleService } from './services/role.service';
 import { UserService } from './services/user.service';
 
 /* END MY SERVICES IMPORTS*/
@@ -78,7 +75,6 @@ import { MailValidator } from './directives/mail-validate.directive';
     /* START DECLARATIONS */
 // Do not edit this comment content, it will be overwritten in next Skaffolder generation
     HomeComponent,
-    LoginComponent,
  /* END DECLARATIONS */
     
     // PIPE
@@ -91,8 +87,6 @@ import { MailValidator } from './directives/mail-validate.directive';
   providers:    [
     /* START PROVIDERS */
 // Do not edit this comment content, it will be overwritten in next Skaffolder generation
-    RoleService,
-    RoleService,
     UserService,
  /* END PROVIDERS */
     

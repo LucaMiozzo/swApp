@@ -9,39 +9,6 @@ USE `swApp_db`;
 -- ENTITIES
 
 --
--- Struttura della tabella `role`
---
-
-CREATE TABLE IF NOT EXISTS `role` (
-	`nam` varchar(40) ,
-	
-	-- RELAZIONI
-
-	`_id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT 
-
-);
-
-
-
-
---
--- Struttura della tabella `role`
---
-
-CREATE TABLE IF NOT EXISTS `role` (
-	`description` varchar(40) ,
-	`name` varchar(40)  NOT NULL,
-	
-	-- RELAZIONI
-
-	`_id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT 
-
-);
-
-
-
-
---
 -- Struttura della tabella `user`
 --
 
@@ -57,15 +24,6 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 	`_id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT 
 
-);
-
-
-
--- relation m:m user_role User - Role
-CREATE TABLE IF NOT EXISTS `User_user_role` (
-    `_id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    `id_User` int(11)  NOT NULL REFERENCES User(_id),
-    `id_Role` int(11)  NOT NULL REFERENCES Role(_id)
 );
 
 

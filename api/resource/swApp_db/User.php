@@ -32,11 +32,6 @@
 		
 		//RELAZIONI ESTERNE
 		
-		user_role: [{
-			type: Schema.ObjectId, 
-			required : true,
-			ref : "User"
-		}],
 		
 	}
  * 
@@ -60,55 +55,10 @@ $app->post('/Users',	function () use ($app){
 		'roles'	=> isset($body->roles)?$body->roles:'',
 		'surname'	=> isset($body->surname)?$body->surname:'',
 		'username'	=> $body->username,
-		
-	);
+			);
 
 	$obj = makeQuery("INSERT INTO user (_id, mail, name, password, roles, surname, username )  VALUES ( null, :mail, :name, :password, :roles, :surname, :username   )", $params, false);
-    
-    
-	// Delete not in array
-	$in = " and id_Role NOT IN (:user_role)";
-	$sql = "DELETE FROM User_user_role WHERE id_User=:id_User ";
-		
-	$params = array (
-		'id_User'	=> $obj['id']
-	);
-	
-	if (isset($body->user_role) && $body->user_role != null && sizeOf($body->user_role) > 0) {
-		$sql = $sql.$in;
-		$params['user_role'] = join("', '", $body->user_role);
-	}
-	
-	makeQuery($sql, $params, false);
-	
-	
-	// Get actual
-	$sql="SELECT id_Role FROM User_user_role WHERE id_User=:id";
-	$params = array (
-		'id'	=> $obj['id'],
-	);
-    $actual = makeQuery($sql, $params, false);
-	$actualArray=[];
-	foreach ($actual as $val) {
-		array_push($actualArray, $val->id_Role);
-	}
 
-	// Insert new
-	if (isset($body->user_role)) {
-    	foreach ($body->user_role as $id_Role) {
-    		if (!in_array($id_Role, $actualArray)){
-    			$sql = "INSERT INTO User_user_role (_id, id_User, id_Role ) VALUES (null, :id_User, :id_Role)";
-    
-    			$params = array (
-    				'id_User'	=> $obj['id'],
-    				'id_Role'	=> $id_Role
-    			);
-        		makeQuery($sql, $params, false);
-    		}
-    	}
-	}
-	
-	
 	
 	echo json_encode($body);
 	
@@ -134,14 +84,6 @@ $app->get('/Users/:id',	function ($id) use ($app){
 	);
 	
 	$obj = makeQuery("SELECT * FROM user WHERE _id = :id LIMIT 1", $params, false);
-	
-	
-	$list_user_role = makeQuery("SELECT id_Role FROM User_user_role WHERE id_User = :id", $params, false);
-	$list_user_role_Array=[];
-	foreach ($list_user_role as $val) {
-		array_push($list_user_role_Array, $val->id_Role);
-	}
-	$obj->user_role = $list_user_role_Array;
 	
 	
 	
@@ -170,54 +112,10 @@ $app->post('/Users/:id',	function ($id) use ($app){
 		'password'	    => $body->password,
 		'roles'	    => isset($body->roles)?$body->roles:'',
 		'surname'	    => isset($body->surname)?$body->surname:'',
-		'username'	    => $body->username
-	);
+		'username'	    => $body->username	);
 
 	$obj = makeQuery("UPDATE user SET  mail = :mail,  name = :name,  password = :password,  roles = :roles,  surname = :surname,  username = :username   WHERE _id = :id LIMIT 1", $params, false);
-    
-	// Delete not in array
-	$in = " and id_Role NOT IN (:user_role)";
-	$sql = "DELETE FROM User_user_role WHERE id_User=:id_User ";
-	
-	$params = array (
-		'id_User'	=> $body->_id
-	);
-	
-	if (isset($body->user_role) && $body->user_role != null && sizeOf($body->user_role) > 0) {
-		$sql = $sql.$in;
-		$params['user_role'] = join("', '", $body->user_role);
-	}
-	
-	makeQuery($sql, $params, false);
-	
-	
-	// Get actual
-	$sql="SELECT id_Role FROM User_user_role WHERE id_User=:id";
-	$params = array (
-		'id'	=> $body->_id,
-	);
-    $actual = makeQuery($sql, $params, false);
-	$actualArray=[];
-	foreach ($actual as $val) {
-		array_push($actualArray, $val->id_Role);
-	}
 
-	// Insert new
-	if (isset($body->user_role)) {
-    	foreach ($body->user_role as $id_Role) {
-    		if (!in_array($id_Role, $actualArray)){
-    			$sql = "INSERT INTO User_user_role (_id, id_User, id_Role ) VALUES (null, :id_User, :id_Role)";
-    
-    			$params = array (
-    				'id_User'	=> $body->_id,
-    				'id_Role'	=> $id_Role
-    			);
-        		makeQuery($sql, $params, false);
-    		}
-    	}
-	}
-	
-	
 	
 	echo json_encode($body);
     	

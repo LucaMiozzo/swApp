@@ -34,9 +34,6 @@ export class UserBase {
     
 	
 	
-	// Relations m:m user_role
-	public user_role: string[]
-	
     	
     constructor(){}
 }
